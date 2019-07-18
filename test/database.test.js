@@ -22,6 +22,8 @@ const item = {
   "category":"Sea Books",
   "img1_url":"https://kbimages1-a.akamaihd.net/db354f34-652f-4c20-b9de-96cfb44bcaf7/353/569/90/False/the-little-mermaid-and-other-fairy-tales.jpg"
 };
+const filter = { id: item.id };
+const update = { price: item.price * 2 };
 
 before((done) => {
   mongoServer = new MongoMemoryServer();
@@ -81,14 +83,35 @@ describe('Collection helper methods', () => {
   });
 
   describe('methods.update()', () => {
-    const filter = { id: item.id };
-    const update = { price: item.price * 2 };
     it('should return a promise', () => {
       methods.update(Products, filter, update).should.be.a('promise');
     });
 
     it('should update a document', async () => {
       await methods.update(Products, filter, update);
+      const [ actual ] = await methods.get(Products, filter);
+      actual.price.should.not.equal(item.price);
+    });
+  });
+
+  describe('methods.upsert()', () => {
+    before((done) => {
+      Products.deleteOne({ id: item.id })
+      .then(() => done())
+      .catch((err) => done(err));
+    });
+    it('should return a promise', () => {
+      methods.upsert(Products).should.be.a('promise');
+    });
+
+    it('should create a document when it doesn\'t exist', async () => {
+      await methods.upsert(Products, item, filter, update);
+      const [ actual ] = await methods.get(Products, filter);
+      actual.price.should.equal(item.price);
+    });
+
+    it('should update a document when it exists', async () => {
+      await methods.upsert(Products, item, filter, update);
       const [ actual ] = await methods.get(Products, filter);
       actual.price.should.not.equal(item.price);
     });

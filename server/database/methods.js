@@ -1,13 +1,24 @@
 const mongoose = require('mongoose');
 
-module.exports = {
-  get: (model, filter) => {
-    return model.find(filter).exec();
-  },
-  create: (model, document) => {
-    return model.create(document);
-  },
-  update: (model, filter, update) => {
-    return model.updateOne(filter, update).exec();
-  },
-}
+const methods = {};
+
+methods.get = (model, filter) => {
+  return model.find(filter).exec();
+};
+
+methods.create = (model, document) => {
+  return model.create(document);
+};
+
+methods.update = (model, filter, update) => {
+  return model.updateOne(filter, update).exec();
+};
+
+methods.upsert = async (model, document, filter, update) => {
+  const result = await methods.get(model, filter);
+  return result.length
+    ? methods.update(model, filter, update)
+    : methods.create(model, document);
+};
+
+module.exports = methods;
