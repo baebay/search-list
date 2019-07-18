@@ -7,4 +7,7 @@ module.exports = {
   create: (model, document) => {
     return model.create(document);
   },
+  update: (model, filter, update) => {
+    return model.updateOne(filter, update).exec();
+  },
 }

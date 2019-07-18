@@ -73,10 +73,24 @@ describe('Collection helper methods', () => {
 
     it('should create a document', async () => {
       await methods.create(Products, item);
-      const [ result ] = await methods.get(Products, { id: 17 });
+      const [ result ] = await methods.get(Products, { id: item.id });
       result.should.exist;
       result.should.be.an('object');
-      result.id.should.equal(17);
+      result.id.should.equal(item.id);
+    });
+  });
+
+  describe('methods.update()', () => {
+    const filter = { id: item.id };
+    const update = { price: item.price * 2 };
+    it('should return a promise', () => {
+      methods.update(Products, filter, update).should.be.a('promise');
+    });
+
+    it('should update a document', async () => {
+      await methods.update(Products, filter, update);
+      const [ actual ] = await methods.get(Products, filter);
+      actual.price.should.not.equal(item.price);
     });
   });
 });
