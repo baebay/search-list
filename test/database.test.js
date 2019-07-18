@@ -14,6 +14,15 @@ const methods = require('../server/database/methods');
 // declare models
 let Products;
 
+// declare dummy data
+const item = {
+  "id": 17,
+  "name":"! The Little Mermaid, ---> BOOK NOT FILM",
+  "price": 48.27,
+  "category":"Sea Books",
+  "img1_url":"https://kbimages1-a.akamaihd.net/db354f34-652f-4c20-b9de-96cfb44bcaf7/353/569/90/False/the-little-mermaid-and-other-fairy-tales.jpg"
+};
+
 before((done) => {
   mongoServer = new MongoMemoryServer();
   mongoServer
@@ -54,6 +63,20 @@ describe('Collection helper methods', () => {
       const expected = await Products.findOne();
       const [ actual ] = await methods.get(Products, { id: expected.id });
       actual.name.should.equal(expected.name);
+    });
+  });
+
+  describe('methods.create()', () => {
+    it('should return a promise', () => {
+      methods.create(Products, {}).should.be.a('promise');
+    });
+
+    it('should create a document', async () => {
+      await methods.create(Products, item);
+      const [ result ] = await methods.get(Products, { id: 17 });
+      result.should.exist;
+      result.should.be.an('object');
+      result.id.should.equal(17);
     });
   });
 });
