@@ -12,26 +12,17 @@ const methods = require('./methods');
 // cart interface
 const cart = {
   get: (filter) => methods.get(CartItems, filter),
-  // add: (item) => {
-  //   let product;
-  //   let query;
-  //   return products.get({ id: item.id })
-  //     .then(([ productDetails ]) => product = productDetails)
-  //     .then(() => cart.get({ id: product.id }))
-  //     .then((cartQuery) => query = cartQuery)
-  //     .then(() => {
-  //       const cartItem = JSON.parse(JSON.stringify(product));
-  //       cartItem.quantity = item.quantity;
-
-  //       if (query.length === 0) {
-  //         return CartItems.create(cartItem)
-  //       }
-
-  //       const newQty = query[0].quantity + item.quantity;
-  //       return CartItems.updateOne({ id: product.id }, { quantity: newQty });
-  //     })
-  //     .catch(console.error);
-  // },
+  add: async (item) => {
+    const array = await methods.get(Products, { id: item.id });
+    const document = JSON.parse(JSON.stringify(array[0]));
+    delete document._id;
+    return methods.upsert(
+      CartItems,
+      document,
+      { id: item.id },
+      { $inc: { "quantity": item.quantity }}
+    );
+  },
   // remove: (item) => {
   //   return CartItems.deleteOne(item).exec();
   // },

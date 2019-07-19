@@ -6,7 +6,8 @@ methods.get = (model, filter) => {
   return model.find(filter).exec();
 };
 
-methods.create = (model, document) => {
+methods.create = async (model, document) => {
+  console.log(model, document);
   return model.create(document);
 };
 
