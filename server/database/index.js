@@ -16,6 +16,7 @@ const cart = {
     const array = await methods.get(Products, { id: item.id });
     const document = JSON.parse(JSON.stringify(array[0]));
     delete document._id;
+    document.quantity = item.quantity;
     return methods.upsert(
       CartItems,
       document,
@@ -23,12 +24,9 @@ const cart = {
       { $inc: { "quantity": item.quantity }}
     );
   },
-  // remove: (item) => {
-  //   return CartItems.deleteOne(item).exec();
-  // },
 };
 
-// // product methods
+// product interface
 const products = {
   get: (filter) => methods.get(Products, filter),
 };

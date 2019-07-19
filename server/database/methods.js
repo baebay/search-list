@@ -7,7 +7,6 @@ methods.get = (model, filter) => {
 };
 
 methods.create = async (model, document) => {
-  console.log(model, document);
   return model.create(document);
 };
 
