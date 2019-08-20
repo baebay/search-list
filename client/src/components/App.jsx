@@ -80,7 +80,7 @@ class NavBar extends Component {
       .then(() => this.getCartItems())
       .catch(console.error);
     });
-    this.getCartItems();
+    // this.getCartItems();
   }
 
   getCartItems () {
@@ -139,10 +139,10 @@ class NavBar extends Component {
               <Toolbar>
 
               <MediaQuery query='(max-width: 600px)'>
-                <IconButton 
-                  edge="start" 
-                  color="inherit" 
-                  aria-label="Menu" 
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="Menu"
                   onClick={this.handleMenuToggle}>
                   <MenuIcon/>
                 </IconButton>
@@ -186,10 +186,10 @@ class NavBar extends Component {
             <Drawer
               docked={false}
               open={this.state.drawerOpen}>
-              {/* <IconButton 
-                edge="start" 
-                color="inherit" 
-                aria-label="Menu" 
+              {/* <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="Menu"
                 onClick={this.handleMenuToggle}
                 align="right">
                 <MenuIcon/>
@@ -197,10 +197,10 @@ class NavBar extends Component {
               Hello asdfasdfa sdfas dfasdf asdf asd fasdf asdf */}
              <AppBar position="static" style={{width : 200}}>
               <Toolbar>
-                <IconButton 
-                  edge="start" 
-                  color="inherit" 
-                  aria-label="Menu" 
+                <IconButton
+                  edge="start"
+                  color="inherit"
+                  aria-label="Menu"
                   onClick={this.handleMenuToggle}>
                   <MenuIcon/>
                 </IconButton>
