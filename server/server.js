@@ -11,7 +11,7 @@ app.use(cors());
 app.use(compression());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('client/dist'));
+app.use('/projects/seabay/shopping-cart/app', express.static('client/dist'));
 
 // http get /api/cart/items --> all cart items
 app.get('/api/cart/items', (req, res) => {
