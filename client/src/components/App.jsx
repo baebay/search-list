@@ -80,7 +80,7 @@ class NavBar extends Component {
       .then(() => this.getCartItems())
       .catch(console.error);
     });
-    // this.getCartItems();
+    this.getCartItems();
   }
 
   getCartItems () {
