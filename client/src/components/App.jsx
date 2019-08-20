@@ -29,7 +29,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 const host = process.env.API_HOST;
 const port = process.env.API_PORT;
-const uri = `http://${host}:${port}`;
+const uri = `http://${host}`;
 
 const styles = {
   root: {
