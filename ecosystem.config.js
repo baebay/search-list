@@ -11,7 +11,7 @@ module.exports = {
       ref: 'origin/master',
       repo: 'git@github.com:seabay-hratx42-fec/shopping-cart.git',
       path: '/home/ross/server/shopping-cart',
-      'post-deploy': 'npm install && npx webpack --config webpack.config.js && pm2 startOrRestart ecosystem.config.js',
+      'post-deploy': 'npm install && webpack --config webpack.config.js && pm2 startOrRestart ecosystem.config.js',
     },
   },
 };

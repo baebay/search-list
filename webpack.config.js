@@ -7,7 +7,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 }, {});
 
 module.exports = {
-  entry: __dirname + '/client/src/index.jsx',
+  entry: `${__dirname}/client/src/index.jsx`,
 
   mode: process.env.NODE_ENV,
 
@@ -22,24 +22,24 @@ module.exports = {
             presets: [
               ['@babel/preset-env', { modules: false }],
               '@babel/preset-react',
-            ]
-          }
-        }
+            ],
+          },
+        },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
   },
 
   output: {
-    path: __dirname + '/client/dist',
+    path: `${__dirname}/client/dist`,
     filename: 'bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
 
   plugins: [
     new webpack.DefinePlugin(envKeys),
   ],
-}
+};
