@@ -34,7 +34,7 @@
     "pm2": "^3.5.1",
     "style-loader": "^0.23.1",
     "webpack": "^4.36.1",
-    "webpack-cli": "^3.3.6"
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@material-ui/core": "^4.2.1",
